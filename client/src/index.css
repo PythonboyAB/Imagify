@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Rozha+One&display=swap");
+
+@import "tailwindcss";
+
+* {
+  font-family: Outfit;
+}
