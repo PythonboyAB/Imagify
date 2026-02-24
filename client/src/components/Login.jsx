@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets.js";
 import { CiUser } from "react-icons/ci";
 import { MdOutlineEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
+import { AppContext } from "../context/AppContext.jsx";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [state, setState] = useState("Login");
+  const { setShowLogin } = useContext(AppContext);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
-    <div className="top-0 absolute left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
-      <form
+    <div className="top-0 fixed left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
+      <motion.form
+        initial={{ opacity: 0.2, y: 50 }}
+        transition={{ duration: 0.3 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         action=""
         className="relative bg-white p-10 rounded-xl text-slate-500"
       >
@@ -53,7 +68,7 @@ const Login = () => {
           {" "}
           {state == "Login" ? "Login" : "Create account"}
         </button>
-        {state == "Login" && (
+        {state == "Login" ? (
           <p className="mt-5 text-center">
             Don't have an account?{" "}
             <span
@@ -64,8 +79,7 @@ const Login = () => {
               Sign up
             </span>
           </p>
-        )}
-        {state != "Login" && (
+        ) : (
           <p className="mt-5 text-center">
             Already have an account?{" "}
             <span
@@ -78,11 +92,12 @@ const Login = () => {
           </p>
         )}
         <img
+          onClick={() => setShowLogin(false)}
           src={assets.cross_icon}
           alt=""
           className=" absolute top-5 right-5 cursor-pointer"
         />
-      </form>
+      </motion.form>
     </div>
   );
 };
