@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import userAuth from "../middlewares/auth.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -53,7 +54,8 @@ const loginUser = async (req, res) => {
 
 const userCredits = async (req, res) => {
   try {
-    const { userId } = req.body;
+    // const { userId } = req.body;
+    const userId = req.user.id;
     const user = await userModel.findById(userId);
     res.json({
       success: true,
