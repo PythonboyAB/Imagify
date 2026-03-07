@@ -4,7 +4,8 @@ import axios from "axios";
 
 export const generateImage = async (req, res) => {
   try {
-    const { userId, prompt } = req.body;
+    const { prompt } = req.body;
+    const userId = req.user.id;
     const user = await userModel.findById(userId);
     console.log(user);
     console.log(userId);
